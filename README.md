@@ -1,4 +1,4 @@
-# DrawableTextView
+# DrawableTextView[![](https://jitpack.io/v/FlodCoding/DrawableTextview.svg)](https://jitpack.io/#FlodCoding/DrawableTextView)
 ## 特性
  * 单独修改Drawable的宽度和高度
  * Drawabel与文字一起居中显示
