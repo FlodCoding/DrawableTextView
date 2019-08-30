@@ -5,7 +5,7 @@
  * 文字在中心显示
  
 ## Demo
-[Download]()
+[Download](https://github.com/FlodCoding/DrawableTextView/raw/master/app/build/outputs/apk/debug/app-debug.apk)
 ### 截图
 ![](/gif/gif1.gif) &ensp;&ensp; ![](/gif/gif2.gif)
 
