@@ -25,7 +25,7 @@
  
  	dependencies {
 		//需要是Androidx
-		implementation 
+		implementation 'com.github.FlodCoding:DrawableTextView:1.0.0'
 		
      	}
 
