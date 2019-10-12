@@ -1,4 +1,4 @@
-package com.flod.view.app;
+package com.flod.drawabletextview.app;
 
 import android.os.Bundle;
 import android.widget.CompoundButton;
@@ -7,7 +7,7 @@ import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.flod.view.DrawableTextView;
+import com.flod.drawabletextview.DrawableTextView;
 
 public class MainActivity extends AppCompatActivity {
 

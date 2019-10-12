@@ -1,4 +1,4 @@
-package com.flod.view;
+package com.flod.drawabletextview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
