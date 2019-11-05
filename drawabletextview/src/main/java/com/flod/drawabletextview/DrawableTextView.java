@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 
@@ -126,8 +127,11 @@ public class DrawableTextView extends AppCompatTextView {
 
         if (enableCenterDrawables && (isCenterHorizontal | isCenterVertical)) {
 
+            //有文字就才位移画布了
+            boolean textNoEmpty = !TextUtils.isEmpty(getText());
             //画布的偏移量
             int transX = 0, transY = 0;
+
 
             if (mDrawables[POSITION.START] != null) {
                 Rect bounds = mDrawablesBounds[POSITION.START];
@@ -135,7 +139,7 @@ public class DrawableTextView extends AppCompatTextView {
                 mDrawables[POSITION.START].setBounds(bounds.left + offset, bounds.top,
                         bounds.right + offset, bounds.bottom);
 
-                if (isCenterHorizontal)
+                if (isCenterHorizontal && textNoEmpty)
                     transX -= (mDrawablesBounds[POSITION.START].width() + getCompoundDrawablePadding()) >> 1;
             }
 
@@ -146,7 +150,7 @@ public class DrawableTextView extends AppCompatTextView {
                 mDrawables[POSITION.TOP].setBounds(bounds.left, bounds.top + offset,
                         bounds.right, bounds.bottom + offset);
 
-                if (isCenterVertical)
+                if (isCenterVertical && textNoEmpty)
                     transY -= (mDrawablesBounds[POSITION.TOP].height() + getCompoundDrawablePadding()) >> 1;
             }
 
@@ -156,7 +160,7 @@ public class DrawableTextView extends AppCompatTextView {
                 mDrawables[POSITION.END].setBounds(bounds.left + offset, bounds.top,
                         bounds.right + offset, bounds.bottom);
 
-                if (isCenterHorizontal)
+                if (isCenterHorizontal && textNoEmpty)
                     transX += (mDrawablesBounds[POSITION.END].width() + getCompoundDrawablePadding()) >> 1;
             }
 
@@ -166,11 +170,12 @@ public class DrawableTextView extends AppCompatTextView {
                 mDrawables[POSITION.BOTTOM].setBounds(bounds.left, bounds.top + offset,
                         bounds.right, bounds.bottom + offset);
 
-                if (isCenterVertical)
+                if (isCenterVertical && textNoEmpty)
                     transY += (mDrawablesBounds[POSITION.BOTTOM].height() + getCompoundDrawablePadding()) >> 1;
             }
 
-            if (enableTextInCenter) {
+
+            if (enableTextInCenter && textNoEmpty) {
                 canvas.translate(transX, transY);
                 this.canvasTransX = transX;
                 this.canvasTransY = transY;
