@@ -94,7 +94,7 @@ public class DrawableTextView extends AppCompatTextView {
             bottomBounds.bottom = (int) array.getDimension(R.styleable.DrawableTextView_drawableBottomHeight, drawables[POSITION.BOTTOM].getIntrinsicHeight());
         }
         array.recycle();
-        setCompoundDrawablesRelative(drawables[POSITION.START], drawables[POSITION.TOP], drawables[POSITION.END], drawables[POSITION.BOTTOM]);
+        setCompoundDrawables(drawables[POSITION.START], drawables[POSITION.TOP], drawables[POSITION.END], drawables[POSITION.BOTTOM]);
     }
 
 
@@ -297,7 +297,7 @@ public class DrawableTextView extends AppCompatTextView {
             mDrawables[position].setBounds(bounds.left, bounds.top, bounds.right, bounds.bottom);
             mDrawablesBounds[position] = bounds;
         }
-        super.setCompoundDrawablesRelative(mDrawables[POSITION.START], mDrawables[POSITION.TOP], mDrawables[POSITION.END], mDrawables[POSITION.BOTTOM]);
+        super.setCompoundDrawables(mDrawables[POSITION.START], mDrawables[POSITION.TOP], mDrawables[POSITION.END], mDrawables[POSITION.BOTTOM]);
     }
 
 
