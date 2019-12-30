@@ -15,8 +15,7 @@
         android:background="@android:color/darker_gray"
         android:drawableStart="@drawable/ic_face_black_24dp"
         android:drawableTop="@drawable/ic_sentiment_satisfied_black_24dp"
-        android:gravity="center"
-
+        android:gravity="center_horizontal"
         android:text="TextView"
         android:textSize="20sp" />
 

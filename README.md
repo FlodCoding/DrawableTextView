@@ -25,7 +25,7 @@
  
  	dependencies {
 		//需要是Androidx
-		implementation 'com.github.FlodCoding:DrawableTextView:1.0.3'
+		implementation 'com.github.FlodCoding:DrawableTextView:1.0.4'
 		
      	}
 
@@ -35,7 +35,7 @@ drawableTextView.setEnableCenterDrawables(true)
                 .setEnableTextInCenter(true)
                 .setDrawableStart(DrawableStart)                //单独设置Drawable,以内部大小为准
                 .setDrawableStart(DrawableStart, width, height) //设置Drawable 并定义其尺寸，单位是DP
-                .setDrawableTop()
+                .setDrawableTop(DrawableTop)
                      ...
                      
 ```              
@@ -55,7 +55,7 @@ drawableTextView.setEnableCenterDrawables(true)
         android:textSize="20sp"
         app:drawableStartHeight="50dp"
         app:drawableStartWidth="50dp"
-        app:enableCenterDrawables="ture"
-        app:enableTextInCenter="ture" />
+        app:enableCenterDrawables="true"
+        app:enableTextInCenter="true" />
 ```
 

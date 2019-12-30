@@ -127,50 +127,53 @@ public class DrawableTextView extends AppCompatTextView {
 
         if (enableCenterDrawables && (isCenterHorizontal | isCenterVertical)) {
 
-            //有文字就才位移画布了
+            //有文字就才位移画布
             boolean textNoEmpty = !TextUtils.isEmpty(getText());
             //画布的偏移量
             int transX = 0, transY = 0;
 
 
-            if (mDrawables[POSITION.START] != null) {
+            if (mDrawables[POSITION.START] != null && isCenterHorizontal) {
                 Rect bounds = mDrawablesBounds[POSITION.START];
                 int offset = (int) calcOffset(POSITION.START);
                 mDrawables[POSITION.START].setBounds(bounds.left + offset, bounds.top,
                         bounds.right + offset, bounds.bottom);
 
-                if (isCenterHorizontal && textNoEmpty)
+                if (enableTextInCenter && textNoEmpty)
                     transX -= (mDrawablesBounds[POSITION.START].width() + getCompoundDrawablePadding()) >> 1;
+
+
             }
 
-            if (mDrawables[POSITION.TOP] != null) {
+            if (mDrawables[POSITION.TOP] != null && isCenterVertical) {
                 Rect bounds = mDrawablesBounds[POSITION.TOP];
                 int offset = (int) calcOffset(POSITION.TOP);
-
                 mDrawables[POSITION.TOP].setBounds(bounds.left, bounds.top + offset,
                         bounds.right, bounds.bottom + offset);
 
-                if (isCenterVertical && textNoEmpty)
+                if (enableTextInCenter && textNoEmpty)
                     transY -= (mDrawablesBounds[POSITION.TOP].height() + getCompoundDrawablePadding()) >> 1;
+
+
             }
 
-            if (mDrawables[POSITION.END] != null) {
+            if (mDrawables[POSITION.END] != null && isCenterHorizontal) {
                 Rect bounds = mDrawablesBounds[POSITION.END];
                 int offset = -(int) calcOffset(POSITION.END);
                 mDrawables[POSITION.END].setBounds(bounds.left + offset, bounds.top,
                         bounds.right + offset, bounds.bottom);
 
-                if (isCenterHorizontal && textNoEmpty)
+                if (enableTextInCenter && textNoEmpty)
                     transX += (mDrawablesBounds[POSITION.END].width() + getCompoundDrawablePadding()) >> 1;
             }
 
-            if (mDrawables[POSITION.BOTTOM] != null) {
+            if (mDrawables[POSITION.BOTTOM] != null && isCenterVertical) {
                 Rect bounds = mDrawablesBounds[POSITION.BOTTOM];
                 int offset = -(int) calcOffset(POSITION.BOTTOM);
                 mDrawables[POSITION.BOTTOM].setBounds(bounds.left, bounds.top + offset,
                         bounds.right, bounds.bottom + offset);
 
-                if (isCenterVertical && textNoEmpty)
+                if (enableTextInCenter && textNoEmpty)
                     transY += (mDrawablesBounds[POSITION.BOTTOM].height() + getCompoundDrawablePadding()) >> 1;
             }
 
