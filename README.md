@@ -36,7 +36,7 @@ App目录下的build.gradle
 drawableTextView.setEnableCenterDrawables(true)
                 .setEnableTextInCenter(true)
                 .setDrawableStart(DrawableStart, width, height) //设置Drawable 并定义其尺寸，单位是DP
-                .setRadiusDP(10)                                //设置圆角,单位dp,需要SDK_INT > 21
+                .setRadiusDP(10)                                //设置圆角,单位dp,需要SDK_INT >= 21
                      ...
 
 ```
