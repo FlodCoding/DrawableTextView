@@ -491,7 +491,7 @@ public class DrawableTextView extends AppCompatTextView {
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    class RadiusViewOutlineProvider extends ViewOutlineProvider {
+    public class RadiusViewOutlineProvider extends ViewOutlineProvider {
         @Override
         public void getOutline(View view, Outline outline) {
             outline.setRoundRect(0, 0, getWidth(), getHeight(), radius);
