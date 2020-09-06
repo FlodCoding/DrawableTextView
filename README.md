@@ -7,7 +7,7 @@
 ## Demo
 [Download](https://github.com/FlodCoding/DrawableTextView/raw/master/app/build/outputs/apk/debug/app-debug.apk)
 ### 截图
- ![](/gif/gif2.gif) &ensp;&ensp; ![](/gif/gif1.gif) &ensp;&ensp; ![](/gif/gif3.gif)
+ ![](/gif/gif1.gif) &ensp;&ensp; ![](/gif/gif2.gif) &ensp;&ensp; ![](/gif/gif3.gif)
 
 
 ## 如何导入
@@ -25,7 +25,7 @@ App目录下的build.gradle
  
  	dependencies {
 		//需要Androidx
-		implementation 'com.github.FlodCoding:DrawableTextView:1.0.4'
+		implementation 'com.github.FlodCoding:DrawableTextView:1.0.5'
 		
      	}
 
