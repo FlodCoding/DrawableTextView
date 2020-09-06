@@ -3,11 +3,12 @@
  * 单独修改Drawable的宽度和高度
  * Drawable与文字一起居中显示
  * 文字在中心显示
+ * 设置圆角
  
 ## Demo
 [Download](https://github.com/FlodCoding/DrawableTextView/raw/master/app/build/outputs/apk/debug/app-debug.apk)
 ### 截图
- ![](/gif/gif1.gif) &ensp;&ensp; ![](/gif/gif2.gif) &ensp;&ensp; ![](/gif/gif3.gif)
+ ![](/gif/gif1.gif) <br> ![](/gif/gif2.gif) <br> ![](/gif/gif3.gif)
 
 
 ## 如何导入
@@ -34,7 +35,7 @@ App目录下的build.gradle
 drawableTextView.setEnableCenterDrawables(true)
                 .setEnableTextInCenter(true)
                 .setDrawableStart(DrawableStart, width, height) //设置Drawable 并定义其尺寸，单位是DP
-                .setRadiusDP(10)                                //设置圆角,单位dp
+                .setRadiusDP(10)                                //设置圆角,单位dp,需要SDK_INT > 21
                      ...
 
 ```
@@ -66,4 +67,4 @@ drawableTextView.setEnableCenterDrawables(true)
 ---|:--:|:--:|--:
 enableCenterDrawables | boolean | false | 是否文字与Drawable一起居中显示<br>(仅当gravity水平或垂直居中有效)
 enableTextInCenter | boolean | false | 是否文字在中心显示<br>(当enableCenterDrawables=true生效时有效果)
-radius|dimension|0|设置四边的圆角
+radius|dimension|0|设置四边的圆角（需要SDK_INT > 21）
