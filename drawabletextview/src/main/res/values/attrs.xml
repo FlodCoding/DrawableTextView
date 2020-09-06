@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="DrawableTextView">
+
+        <attr name="radius" format="dimension" />
         <attr name="enableCenterDrawables" format="boolean" />
         <attr name="enableTextInCenter" format="boolean" />
         <attr name="drawableStartWidth" format="dimension" />

@@ -3,16 +3,21 @@ package com.flod.drawabletextview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Outline;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.View;
+import android.view.ViewOutlineProvider;
 
 import androidx.annotation.Dimension;
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import java.lang.annotation.Retention;
@@ -20,12 +25,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.Arrays;
 
 /**
- * SimpleDes:
  * Creator: Flood
- * Date: 2019-06-13
- * UseDes:
+ * CreateDate: 2019-06-13
+ * Update: 2020-09-06
+ * Desc:
+ * 1、继承{@link AppCompatTextView}
+ * 2、可用于单独修改Drawable的宽度和高度
+ * 3、文字在中心显示
+ * 4、设置圆角（需要SDK_INT > 21）
  */
-@SuppressWarnings({"UnusedReturnValue", "unused", "SameParameterValue"})
+@SuppressWarnings({"UnusedReturnValue", "unused", "SameParameterValue", "RedundantSuppression"})
 public class DrawableTextView extends AppCompatTextView {
 
     @IntDef({POSITION.START, POSITION.TOP, POSITION.END, POSITION.BOTTOM})
@@ -39,16 +48,17 @@ public class DrawableTextView extends AppCompatTextView {
 
     private Drawable[] mDrawables = new Drawable[]{null, null, null, null};
     private Rect[] mDrawablesBounds = new Rect[4];
-    private int canvasTransX = 0, canvasTransY = 0;
-
     private float mTextWidth;
     private float mTextHeight;
-
     private boolean firstLayout;
+    private int canvasTransX = 0, canvasTransY = 0;
+
     private boolean isCenterHorizontal;         //Gravity是否水平居中
     private boolean isCenterVertical;           //Gravity是否垂直居中
     private boolean enableCenterDrawables;      //drawable跟随文本居中
     private boolean enableTextInCenter;         //默认情况下文字与图片共同居中，开启后文字在最中间，图片紧挨
+    private int radius;                         //四边圆角
+
 
     public DrawableTextView(Context context) {
         super(context);
@@ -68,30 +78,40 @@ public class DrawableTextView extends AppCompatTextView {
     private void init(Context context, AttributeSet attrs) {
         Drawable[] drawables = getCompoundDrawablesRelative();
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.DrawableTextView);
-        enableCenterDrawables = array.getBoolean(R.styleable.DrawableTextView_enableCenterDrawables, true);
+        enableCenterDrawables = array.getBoolean(R.styleable.DrawableTextView_enableCenterDrawables, false);
         enableTextInCenter = array.getBoolean(R.styleable.DrawableTextView_enableTextInCenter, false);
+
+        radius = array.getDimensionPixelSize(R.styleable.DrawableTextView_radius, 0);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (radius > 0) {
+                setClipToOutline(true);
+                setOutlineProvider(new RadiusViewOutlineProvider());
+            }
+        }
+
         if (drawables[POSITION.START] != null) {
             Rect startBounds = drawables[POSITION.START].getBounds();
-            startBounds.right = (int) array.getDimension(R.styleable.DrawableTextView_drawableStartWidth, drawables[POSITION.START].getIntrinsicWidth());
-            startBounds.bottom = (int) array.getDimension(R.styleable.DrawableTextView_drawableStartHeight, drawables[POSITION.START].getIntrinsicHeight());
+            startBounds.right = array.getDimensionPixelSize(R.styleable.DrawableTextView_drawableStartWidth, drawables[POSITION.START].getIntrinsicWidth());
+            startBounds.bottom = array.getDimensionPixelSize(R.styleable.DrawableTextView_drawableStartHeight, drawables[POSITION.START].getIntrinsicHeight());
         }
 
         if (drawables[POSITION.TOP] != null) {
             Rect topBounds = drawables[POSITION.TOP].getBounds();
-            topBounds.right = (int) array.getDimension(R.styleable.DrawableTextView_drawableTopWidth, drawables[POSITION.TOP].getIntrinsicWidth());
-            topBounds.bottom = (int) array.getDimension(R.styleable.DrawableTextView_drawableTopHeight, drawables[POSITION.TOP].getIntrinsicHeight());
+            topBounds.right = array.getDimensionPixelSize(R.styleable.DrawableTextView_drawableTopWidth, drawables[POSITION.TOP].getIntrinsicWidth());
+            topBounds.bottom = array.getDimensionPixelSize(R.styleable.DrawableTextView_drawableTopHeight, drawables[POSITION.TOP].getIntrinsicHeight());
         }
 
         if (drawables[POSITION.END] != null) {
             Rect endBounds = drawables[POSITION.END].getBounds();
-            endBounds.right = (int) array.getDimension(R.styleable.DrawableTextView_drawableEndWidth, drawables[POSITION.END].getIntrinsicWidth());
-            endBounds.bottom = (int) array.getDimension(R.styleable.DrawableTextView_drawableEndHeight, drawables[POSITION.END].getIntrinsicHeight());
+            endBounds.right = array.getDimensionPixelSize(R.styleable.DrawableTextView_drawableEndWidth, drawables[POSITION.END].getIntrinsicWidth());
+            endBounds.bottom = array.getDimensionPixelSize(R.styleable.DrawableTextView_drawableEndHeight, drawables[POSITION.END].getIntrinsicHeight());
         }
 
         if (drawables[POSITION.BOTTOM] != null) {
             Rect bottomBounds = drawables[POSITION.BOTTOM].getBounds();
-            bottomBounds.right = (int) array.getDimension(R.styleable.DrawableTextView_drawableBottomWidth, drawables[POSITION.BOTTOM].getIntrinsicWidth());
-            bottomBounds.bottom = (int) array.getDimension(R.styleable.DrawableTextView_drawableBottomHeight, drawables[POSITION.BOTTOM].getIntrinsicHeight());
+            bottomBounds.right = array.getDimensionPixelSize(R.styleable.DrawableTextView_drawableBottomWidth, drawables[POSITION.BOTTOM].getIntrinsicWidth());
+            bottomBounds.bottom = array.getDimensionPixelSize(R.styleable.DrawableTextView_drawableBottomHeight, drawables[POSITION.BOTTOM].getIntrinsicHeight());
         }
         array.recycle();
         setCompoundDrawables(drawables[POSITION.START], drawables[POSITION.TOP], drawables[POSITION.END], drawables[POSITION.BOTTOM]);
@@ -440,6 +460,42 @@ public class DrawableTextView extends AppCompatTextView {
 
     public Drawable[] getDrawables() {
         return mDrawables;
+    }
+
+
+    /**
+     * 设置圆角，单位是PX
+     */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public DrawableTextView setRadius(@Px int px) {
+        this.radius = px;
+        if (!(getOutlineProvider() instanceof RadiusViewOutlineProvider)) {
+            setOutlineProvider(new RadiusViewOutlineProvider());
+            setClipToOutline(true);
+        } else
+            invalidateOutline();
+        return this;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public DrawableTextView setRadiusDP(@Dimension(unit = Dimension.DP) int dp) {
+        return setRadius(dp2px(dp));
+    }
+
+    /**
+     * 获取圆角大小，单位是PX
+     */
+    public int getRadius() {
+        return radius;
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    class RadiusViewOutlineProvider extends ViewOutlineProvider {
+        @Override
+        public void getOutline(View view, Outline outline) {
+            outline.setRoundRect(0, 0, getWidth(), getHeight(), radius);
+        }
     }
 
 

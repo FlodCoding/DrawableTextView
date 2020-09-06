@@ -32,6 +32,7 @@
         android:textSize="20sp"
         app:drawableStartHeight="50dp"
         app:drawableStartWidth="50dp"
+        app:radius="0dp"
         app:enableCenterDrawables="false"
         app:enableTextInCenter="false" />
 
@@ -60,30 +61,72 @@
             android:switchPadding="20dp"
             android:text="TextInCenter" />
 
-
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="DrawableStartSize"
-            android:textColor="@android:color/black" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <SeekBar
-            android:id="@+id/sbWidth"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:progress="50"
-            android:max="100" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Radius"
+                android:textColor="@android:color/black" />
 
-        <SeekBar
-            android:id="@+id/sbHeight"
-            android:layout_width="100dp"
+            <SeekBar
+                android:id="@+id/sbRadius"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:max="100"
+                android:progress="0" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:progress="50"
-            android:layout_marginTop="10dp"
-            android:max="100" />
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="DrawableStartSize"
+                android:textColor="@android:color/black" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <SeekBar
+                    android:id="@+id/sbWidth"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layoutDirection="rtl"
+                    android:max="100"
+                    android:progress="50" />
+
+                <SeekBar
+                    android:id="@+id/sbHeight"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:layoutDirection="rtl"
+                    android:max="100"
+                    android:progress="50" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
 
 
     </LinearLayout>

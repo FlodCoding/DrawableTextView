@@ -1,5 +1,6 @@
 package com.flod.drawabletextview.app;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
@@ -38,43 +39,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        SeekBar sbRadius = findViewById(R.id.sbRadius);
+        sbRadius.setOnSeekBarChangeListener(new EmptyOnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    dtv.setRadius(progress);
+                }
+            }
+
+        });
+
         SeekBar sbWidth = findViewById(R.id.sbWidth);
-        sbWidth.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        sbWidth.setOnSeekBarChangeListener(new EmptyOnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
                 dtv.setDrawableStart(dtv.getDrawables()[0], i, px2dp(dtv.getDrawables()[0].getBounds().height()));
             }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
         });
 
 
         SeekBar sbHeight = findViewById(R.id.sbHeight);
-        sbHeight.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        sbHeight.setOnSeekBarChangeListener(new EmptyOnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
                 dtv.setDrawableStart(dtv.getDrawables()[0], px2dp(dtv.getDrawables()[0].getBounds().width()), i);
             }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
         });
 
     }
@@ -82,6 +75,25 @@ public class MainActivity extends AppCompatActivity {
     protected int px2dp(float px) {
         final float scale = getResources().getDisplayMetrics().density;
         return (int) (px / scale + 0.5f);
+    }
+
+
+    static class EmptyOnSeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
     }
 
 }

@@ -7,7 +7,7 @@
 ## Demo
 [Download](https://github.com/FlodCoding/DrawableTextView/raw/master/app/build/outputs/apk/debug/app-debug.apk)
 ### 截图
-![](/gif/gif1.gif) &ensp;&ensp; ![](/gif/gif2.gif)
+ ![](/gif/gif2.gif) &ensp;&ensp; ![](/gif/gif1.gif) &ensp;&ensp; ![](/gif/gif3.gif)
 
 
 ## 如何导入
@@ -21,10 +21,10 @@
 	}
  
  
- App目录下的build.gradle 
+App目录下的build.gradle
  
  	dependencies {
-		//需要是Androidx
+		//需要Androidx
 		implementation 'com.github.FlodCoding:DrawableTextView:1.0.4'
 		
      	}
@@ -33,15 +33,14 @@
 ```
 drawableTextView.setEnableCenterDrawables(true)
                 .setEnableTextInCenter(true)
-                .setDrawableStart(DrawableStart)                //单独设置Drawable,以内部大小为准
                 .setDrawableStart(DrawableStart, width, height) //设置Drawable 并定义其尺寸，单位是DP
-                .setDrawableTop(DrawableTop)
+                .setRadiusDP(10)                                //设置圆角,单位dp
                      ...
-                     
-```              
-             
+
+```
+
 #### 或者
-```                 
+```
     <com.flod.view.DrawableTextView
         android:id="@+id/dtv"
         android:layout_width="300dp"
@@ -55,7 +54,16 @@ drawableTextView.setEnableCenterDrawables(true)
         android:textSize="20sp"
         app:drawableStartHeight="50dp"
         app:drawableStartWidth="50dp"
+        app:radius="10dp"
         app:enableCenterDrawables="true"
         app:enableTextInCenter="true" />
 ```
 
+## 属性说明
+
+### XML
+属性名 | 类型 | 默认值 | 说明
+---|:--:|:--:|--:
+enableCenterDrawables | boolean | false | 是否文字与Drawable一起居中显示<br>(仅当gravity水平或垂直居中有效)
+enableTextInCenter | boolean | false | 是否文字在中心显示<br>(当enableCenterDrawables=true生效时有效果)
+radius|dimension|0|设置四边的圆角
