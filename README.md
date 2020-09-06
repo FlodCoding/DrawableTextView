@@ -18,6 +18,7 @@
 		  repositories {
 		  	...
 		  maven { url 'https://jitpack.io' }
+		  
 		  }
 	}
  
@@ -26,7 +27,7 @@ App目录下的build.gradle
  
  	dependencies {
 		//需要Androidx
-		implementation 'com.github.FlodCoding:DrawableTextView:1.0.5'
+		implementation 'com.github.FlodCoding:DrawableTextView:1.0.6'
 		
      	}
 
