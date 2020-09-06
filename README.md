@@ -68,4 +68,4 @@ drawableTextView.setEnableCenterDrawables(true)
 ---|:--:|:--:|--:
 enableCenterDrawables | boolean | false | 是否文字与Drawable一起居中显示<br>(仅当gravity水平或垂直居中有效)
 enableTextInCenter | boolean | false | 是否文字在中心显示<br>(当enableCenterDrawables=true生效时有效果)
-radius|dimension|0|设置四边的圆角（需要SDK_INT > 21）
+radius|dimension|0|设置四边的圆角（需要SDK_INT >= 21）
